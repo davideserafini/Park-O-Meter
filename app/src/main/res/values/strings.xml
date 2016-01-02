@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Park O\' Meter</string>
+
+    <string name="hourly_rate_label">Tariffa oraria</string>
+    <string name="hourly_rate_example">0,40</string>
+    <string name="park_start_hour_label">Orario di inizio</string>
+    <string name="park_start_hour_example">09:30</string>
+    <string name="park_end_hour_label">Orario di fine</string>
+    <string name="park_end_hour_example">15:30</string>
+    <string name="action_calc_fee">Calcola</string>
+</resources>
