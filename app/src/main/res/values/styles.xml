@@ -14,7 +14,7 @@
     <style name="AppTheme.EditText" parent="@android:style/Widget.EditText">
         <item name="android:background">@color/colorIcons</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textColorHint">@color/colorSecondaryText</item>
+        <item name="android:textColorHint">@color/colorPrimaryLight</item>
         <item name="android:paddingLeft">@dimen/field_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/field_horizontal_padding</item>
     </style>

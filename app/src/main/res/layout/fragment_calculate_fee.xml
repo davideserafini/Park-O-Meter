@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    tools:context="com.davideserafini.parkometer.CalculateFeeFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
+        android:text="@string/hourly_rate_label"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/hourly_rate_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="numberDecimal"
+        android:hint="@string/hourly_rate_example"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
+        android:text="@string/park_start_hour_label"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/start_park_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="time"
+        android:hint="@string/park_start_hour_example"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
+        android:text="@string/park_end_hour_label"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/end_park_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="time"
+        android:hint="@string/park_end_hour_example"/>
+
+    <Button
+        android:id="@+id/calculate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/action_calc_fee"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+
+</LinearLayout>
