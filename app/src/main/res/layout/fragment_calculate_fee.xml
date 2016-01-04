@@ -34,7 +34,8 @@
         android:id="@+id/start_park_field"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:inputType="time"
+        android:editable="false"
+        android:focusable="false"
         android:hint="@string/park_start_hour_example"/>
 
     <TextView
@@ -49,7 +50,8 @@
         android:id="@+id/end_park_field"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:inputType="time"
+        android:editable="false"
+        android:focusable="false"
         android:hint="@string/park_end_hour_example"/>
 
     <Button

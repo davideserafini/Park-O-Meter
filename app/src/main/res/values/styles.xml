@@ -9,6 +9,7 @@
 
         <item name="editTextStyle">@style/AppTheme.EditText</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
+        <item name="android:timePickerDialogTheme">@style/AppTheme.TimePickerDialog</item>
     </style>
 
     <style name="AppTheme.EditText" parent="@android:style/Widget.EditText">
@@ -23,6 +24,12 @@
         <item name="android:height">48dp</item>
     </style>
 
+    <style name="AppTheme.TimePickerDialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorAccent</item> <!-- header background and cancel/ok buttons text -->
+        <!--<item name="android:background">#FF0000</item>--> <!-- background for picker and numbers at the top -->
+        <item name="android:textColorSecondary">@color/colorPrimaryLight</item> <!-- Clock -->
+        <item name="android:textColorSecondaryInverse">@color/colorSecondaryTextInverse</item> <!-- Disabled hour/minutes in header -->
+    </style>
 
     <style name="FieldLabel" parent="@android:style/Widget.Material.TextView">
         <item name="android:paddingLeft">@dimen/field_horizontal_padding</item>
