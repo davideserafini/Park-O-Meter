@@ -3,6 +3,12 @@
     <string name="app_name">Park O\' Meter</string>
 
     <!-- Calculate fee form -->
+    <string name="park_selection_label">Scegli un parcheggio</string>
+    <string-array name="no_parks">
+        <item>Nessun parcheggio presente</item>
+    </string-array>
+    <string name="park_add_new_action">Aggiungi un parcheggio</string>
+    <string name="park_or_new">oppure</string>
     <string name="hourly_rate_label">Tariffa oraria</string>
     <string name="hourly_rate_example">0,40</string>
     <string name="park_start_hour_label">Orario di inizio</string>

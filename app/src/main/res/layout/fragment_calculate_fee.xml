@@ -12,6 +12,19 @@
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:gravity="center_vertical"
+        android:text="@string/park_selection_label"
+        style="@style/FieldLabel"/>
+    
+    <Spinner
+        android:id="@+id/park_selection_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
         android:text="@string/hourly_rate_label"
         style="@style/FieldLabel"/>
 
@@ -19,8 +32,9 @@
         android:id="@+id/hourly_rate_field"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:inputType="numberDecimal"
-        android:hint="@string/hourly_rate_example"/>
+        android:drawableLeft="@drawable/ic_euro"
+        android:drawablePadding="@dimen/field_horizontal_padding"
+        android:inputType="numberDecimal"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -34,9 +48,10 @@
         android:id="@+id/start_park_field"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:drawableLeft="@drawable/ic_clock"
+        android:drawablePadding="@dimen/field_horizontal_padding"
         android:editable="false"
-        android:focusable="false"
-        android:hint="@string/park_start_hour_example"/>
+        android:focusable="false"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -50,9 +65,10 @@
         android:id="@+id/end_park_field"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:drawableLeft="@drawable/ic_clock"
+        android:drawablePadding="@dimen/field_horizontal_padding"
         android:editable="false"
-        android:focusable="false"
-        android:hint="@string/park_end_hour_example"/>
+        android:focusable="false"/>
 
     <Button
         android:id="@+id/calculate_btn"

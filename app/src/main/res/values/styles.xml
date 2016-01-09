@@ -15,13 +15,14 @@
     <style name="AppTheme.EditText" parent="@android:style/Widget.EditText">
         <item name="android:background">@color/colorIcons</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textColorHint">@color/colorPrimaryLight</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:paddingLeft">@dimen/field_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/field_horizontal_padding</item>
     </style>
 
     <style name="AppTheme.Button" parent="@android:style/Widget.Material.Button">
         <item name="android:height">48dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="AppTheme.TimePickerDialog" parent="Theme.AppCompat.Dialog">
@@ -34,7 +35,7 @@
     <style name="FieldLabel" parent="@android:style/Widget.Material.TextView">
         <item name="android:paddingLeft">@dimen/field_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/field_horizontal_padding</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 
