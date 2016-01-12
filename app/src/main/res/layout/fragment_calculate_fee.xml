@@ -7,74 +7,69 @@
     android:focusableInTouchMode="true"
     tools:context="com.davideserafini.parkometer.CalculateFeeFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center_vertical"
-        android:text="@string/park_selection_label"
-        style="@style/FieldLabel"/>
-    
     <Spinner
-        android:id="@+id/park_selection_field"
+        android:id="@+id/car_park_selection_field"
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
-    
+        android:layout_height="@dimen/field_height"/>
+
+    <Button
+        android:id="@+id/car_park_add_new_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/park_add_new_action"
+        style="@style/SmallButton"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center_vertical"
         android:text="@string/hourly_rate_label"
+        android:labelFor="@id/hourly_rate_field"
         style="@style/FieldLabel"/>
 
     <EditText
         android:id="@+id/hourly_rate_field"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/field_height"
         android:drawableLeft="@drawable/ic_euro"
         android:drawablePadding="@dimen/field_horizontal_padding"
         android:inputType="numberDecimal"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center_vertical"
         android:text="@string/park_start_hour_label"
+        android:labelFor="@+id/start_park_field"
         style="@style/FieldLabel"/>
 
     <EditText
         android:id="@+id/start_park_field"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/field_height"
         android:drawableLeft="@drawable/ic_clock"
         android:drawablePadding="@dimen/field_horizontal_padding"
         android:editable="false"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:inputType="time"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center_vertical"
         android:text="@string/park_end_hour_label"
+        android:labelFor="@+id/end_park_field"
         style="@style/FieldLabel"/>
 
     <EditText
         android:id="@+id/end_park_field"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/field_height"
         android:drawableLeft="@drawable/ic_clock"
         android:drawablePadding="@dimen/field_horizontal_padding"
         android:editable="false"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:inputType="time"/>
 
     <Button
         android:id="@+id/calculate_btn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="@string/action_calc_fee"
+        android:text="@string/calc_fee_action"
         android:layout_marginTop="@dimen/activity_horizontal_margin"/>
 
 </LinearLayout>

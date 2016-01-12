@@ -3,22 +3,37 @@ package com.davideserafini.parkometer;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.davideserafini.parkometer.model.CarPark;
+
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
 
 public class CalculateFeeFragment extends Fragment {
@@ -29,12 +44,18 @@ public class CalculateFeeFragment extends Fragment {
 	// UI elements
 	/** Calculate button */
 	private Button mCalculateBtn;
+	/** Add new parking button */
+	private Button mCarParkAddNtBtn;
 	/** Hourly rate field */
 	private EditText mHourlyRateField;
 	/** Park start time field */
 	private EditText mParkStartField;
 	/** Park end time field */
 	private EditText mParkEndField;
+	/** Park presets spinner */
+	private Spinner mCarParkSelectionField;
+
+	private boolean loaded = false;
 
 
 	public static CalculateFeeFragment newInstance() {
@@ -53,37 +74,31 @@ public class CalculateFeeFragment extends Fragment {
 		// Get UI elements and setup actions for calculate button and park start/end fields
 		mCalculateBtn = (Button) fragmentContent.findViewById(R.id.calculate_btn);
 		addClickListenerToCalculateButton();
+
+		mCarParkAddNtBtn = (Button) fragmentContent.findViewById(R.id.car_park_add_new_btn);
+		addClickListenerToAddNewParkButton();
+
 		mHourlyRateField = (EditText) fragmentContent.findViewById(R.id.hourly_rate_field);
+
 		mParkStartField = (EditText) fragmentContent.findViewById(R.id.start_park_field);
 		addClickListenerToStartField();
+		addDefaultValueToStartField();
+
 		mParkEndField = (EditText) fragmentContent.findViewById(R.id.end_park_field);
 		addClickListenerToEndField();
+
+		mCarParkSelectionField = (Spinner) fragmentContent.findViewById(R.id.car_park_selection_field);
+		setUpCarParkSelection();
 
 		return fragmentContent;
 	}
 
 	/**
-	 * Set click listener to the calculate button
-	 *
-	 * This method validates the form and if everything is correct it calculates and displays the fee
+	 * Set the current time as default for start field
 	 */
-	private void addClickListenerToCalculateButton() {
-		mCalculateBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				// Validate form
-				if (isFormValid()) {
-					// Calculate fee
-					BigDecimal totalFee = calculateTotalFee();
-					// Create the dialog to display the fee
-					ShowFeeDialogFragment showFeeDialogFragment = new ShowFeeDialogFragment();
-					showFeeDialogFragment.setFee(totalFee);
-					showFeeDialogFragment.show(getFragmentManager(), ShowFeeDialogFragment.TAG);
-				}
-			}
-
-		});
+	private void addDefaultValueToStartField() {
+		final Calendar calendar = Calendar.getInstance();
+		mParkStartField.setText(String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 	}
 
 	/**
@@ -147,6 +162,83 @@ public class CalculateFeeFragment extends Fragment {
 		});
 	}
 
+	/**
+	 * Set up park selection
+	 */
+	private void setUpCarParkSelection() {
+		final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+				R.array.no_parks, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mCarParkSelectionField.setAdapter(adapter);
+
+		Realm realm = Realm.getInstance(getContext());
+		final RealmResults<CarPark> carParks = realm.where(CarPark.class).findAllAsync();
+		RealmChangeListener carParkQueryCallback = new RealmChangeListener() {
+			@Override
+			public void onChange() {
+				carParks.removeChangeListeners();
+				List<CarPark> carParkObjs = new ArrayList<>();
+				for (CarPark carPark : carParks) {
+					carParkObjs.add(carPark);
+				}
+				final CarParkSpinnerAdapter updatedAdapter = new CarParkSpinnerAdapter(getActivity(),
+						android.R.layout.simple_spinner_item, carParkObjs);
+				updatedAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				mCarParkSelectionField.setAdapter(updatedAdapter);
+				mCarParkSelectionField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+						if (i > 0) {
+							CarPark carPark = (CarPark) adapterView.getItemAtPosition(i);
+							BigDecimal rate = new BigDecimal((double) carPark.getHourlyRate() / 100).setScale(2, RoundingMode.HALF_EVEN);
+							mHourlyRateField.setText(rate.toString());
+						} else {
+							mHourlyRateField.setText(null);
+						}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent){}
+				});
+			}
+		};
+		carParks.addChangeListener(carParkQueryCallback);
+	}
+
+	private void addClickListenerToAddNewParkButton() {
+		mCarParkAddNtBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent subActivity = new Intent(getActivity().getApplicationContext(), AddNewCarParkActivity.class);
+				startActivity(subActivity);
+				getActivity().overridePendingTransition(R.transition.slide_in_from_right, android.R.anim.fade_out);
+			}
+		});
+	}
+
+	/**
+	 * Set click listener to the calculate button
+	 *
+	 * This method validates the form and if everything is correct it calculates and displays the fee
+	 */
+	private void addClickListenerToCalculateButton() {
+		mCalculateBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				// Validate form
+				if (isFormValid()) {
+					// Calculate fee
+					BigDecimal totalFee = calculateTotalFee();
+					// Create the dialog to display the fee
+					ShowFeeDialogFragment showFeeDialogFragment = new ShowFeeDialogFragment();
+					showFeeDialogFragment.setFee(totalFee);
+					showFeeDialogFragment.show(getFragmentManager(), ShowFeeDialogFragment.TAG);
+				}
+			}
+
+		});
+	}
 
 	/**
 	 * Validate the data inserted
@@ -318,6 +410,7 @@ public class CalculateFeeFragment extends Fragment {
 		 * @param minute chosen minute
 		 */
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			mDestinationField.setError(null);
 			mDestinationField.setText(String.format("%02d:%02d", hourOfDay, minute));
 		}
 	}

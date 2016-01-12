@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.davideserafini.parkometer"
-        minSdkVersion 10
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
-        versionName "0.2"
+        versionName "0.5"
     }
     buildTypes {
         release {

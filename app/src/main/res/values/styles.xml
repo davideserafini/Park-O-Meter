@@ -21,7 +21,7 @@
     </style>
 
     <style name="AppTheme.Button" parent="@android:style/Widget.Material.Button">
-        <item name="android:height">48dp</item>
+        <item name="android:height">@dimen/field_height</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -35,8 +35,15 @@
     <style name="FieldLabel" parent="@android:style/Widget.Material.TextView">
         <item name="android:paddingLeft">@dimen/field_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/field_horizontal_padding</item>
+        <item name="android:layout_height">@dimen/label_height</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="SmallButton" parent="@android:style/Widget.Material.Button.Small">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>

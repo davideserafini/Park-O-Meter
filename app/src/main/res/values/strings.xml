@@ -2,24 +2,33 @@
     <!-- App strings -->
     <string name="app_name">Park O\' Meter</string>
 
-    <!-- Calculate fee form -->
-    <string name="park_selection_label">Scegli un parcheggio</string>
+    <!-- Common to more than one form -->
+    <string name="hourly_rate_label">Tariffa oraria</string>
+    <string name="hourly_rate_example">0,40</string>
+    <string name="hourly_rate_required_error">Inserisci la tariffa oraria</string>
+
+
+    <!-- Calculate fee form specific -->
     <string-array name="no_parks">
         <item>Nessun parcheggio presente</item>
     </string-array>
-    <string name="park_add_new_action">Aggiungi un parcheggio</string>
+    <string name="park_add_new_action">+ Aggiungi un parcheggio</string>
     <string name="park_or_new">oppure</string>
-    <string name="hourly_rate_label">Tariffa oraria</string>
-    <string name="hourly_rate_example">0,40</string>
     <string name="park_start_hour_label">Orario di inizio</string>
     <string name="park_start_hour_example">09:30</string>
     <string name="park_end_hour_label">Orario di fine</string>
     <string name="park_end_hour_example">15:30</string>
-    <string name="action_calc_fee">Calcola</string>
-    <!-- Calculate fee form error -->
-    <string name="hourly_rate_required_error">Inserisci la tariffa oraria</string>
+    <string name="calc_fee_action">Calcola</string>
+
     <string name="park_start_required_error">Inserisci l\'orario di inizio</string>
     <string name="park_end_required_error">Inserisci l\'orario di fine</string>
+
+    <!-- Add new car park form specific -->
+    <string name="car_park_name_label">Nome del parcheggio</string>
+    <string name="car_park_city_label">Città</string>
+    <string name="save_car_park_action">Salva</string>
+    <string name="car_park_required_error">Il nome del parcheggio è obbligatorio</string>
+    <string name="city_required_error">La città è obbligatoria</string>
 
 
 </resources>

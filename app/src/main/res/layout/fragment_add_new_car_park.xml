@@ -1,0 +1,58 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    tools:context="com.davideserafini.parkometer.AddNewCarParkFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/car_park_name_label"
+        android:labelFor="@+id/car_park_name_field"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/car_park_name_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/field_height"
+        android:drawablePadding="@dimen/field_horizontal_padding"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/hourly_rate_label"
+        android:labelFor="@+id/hourly_rate_field"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/hourly_rate_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/field_height"
+        android:drawableLeft="@drawable/ic_euro"
+        android:drawablePadding="@dimen/field_horizontal_padding"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/car_park_city_label"
+        android:labelFor="@+id/city_field"
+        style="@style/FieldLabel"/>
+
+    <EditText
+        android:id="@+id/city_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/field_height"
+        android:drawableLeft="@drawable/ic_location"
+        android:drawablePadding="@dimen/field_horizontal_padding"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/save_car_park_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/save_car_park_action"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+
+</LinearLayout>
