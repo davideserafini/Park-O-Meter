@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -359,6 +360,15 @@ public class CalculateFeeFragment extends Fragment {
 		return costPerMinute.multiply(new BigDecimal(parkingTimeInMinutes)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
 
+	public void closeFeeDialog(){
+		// Create the dialog to display the fee
+		SetAlarmDialogFragment setAlarmDialogFragment = new SetAlarmDialogFragment();
+		String[] parkEndTimeComponents = mParkEndField.getText().toString().split(":");
+		setAlarmDialogFragment.setTime(Integer.parseInt(parkEndTimeComponents[0]), Integer.parseInt(parkEndTimeComponents[1]));
+		setAlarmDialogFragment.show(getFragmentManager(), SetAlarmDialogFragment.TAG);
+	}
+
+
 	/**
 	 * TimePicker to choose start and end times
 	 */
@@ -432,9 +442,9 @@ public class CalculateFeeFragment extends Fragment {
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setMessage("" + mFee)
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
-
+							((CalculateFeeFragment) getFragmentManager().findFragmentByTag(CalculateFeeFragment.TAG)).closeFeeDialog();
 						}
 					});
 			// Create the AlertDialog object and return it
@@ -449,7 +459,49 @@ public class CalculateFeeFragment extends Fragment {
 		public void setFee(BigDecimal fee) {
 			mFee = fee;
 		}
+	}
 
+	/**
+	 * Dialog to display the final fee
+	 */
+	public static class SetAlarmDialogFragment extends DialogFragment {
+
+		/** Tag to be used with FragmentManager */
+		public static final String TAG = "SetAlarmDialogFragment";
+
+		private int mHour;
+		private int mMinute;
+
+		@Override
+		@NonNull
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setMessage(getString(R.string.set_alarm_question))
+					.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+							Calendar calendar = Calendar.getInstance();
+							calendar.set(Calendar.HOUR_OF_DAY, mHour);
+							calendar.set(Calendar.MINUTE, mMinute);
+							calendar.add(Calendar.MINUTE, -10);
+
+							i.putExtra(AlarmClock.EXTRA_MESSAGE, "Park O' Meter");
+							i.putExtra(AlarmClock.EXTRA_HOUR, calendar.get(Calendar.HOUR_OF_DAY));
+							i.putExtra(AlarmClock.EXTRA_MINUTES, calendar.get(Calendar.MINUTE));
+							startActivity(i);
+						}
+					})
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {}
+					});
+			// Create the AlertDialog object and return it
+			return builder.create();
+		}
+
+		public void setTime(int hour, int minute) {
+			mHour = hour;
+			mMinute = minute;
+		}
 	}
 
 }

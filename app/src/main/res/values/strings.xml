@@ -19,6 +19,7 @@
     <string name="park_end_hour_label">Orario di fine</string>
     <string name="park_end_hour_example">15:30</string>
     <string name="calc_fee_action">Calcola</string>
+    <string name="set_alarm_question">Vuoi impostare un allarme?</string>
 
     <string name="park_start_required_error">Inserisci l\'orario di inizio</string>
     <string name="park_end_required_error">Inserisci l\'orario di fine</string>
